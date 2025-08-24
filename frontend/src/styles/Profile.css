@@ -142,3 +142,65 @@ textarea {
   overflow-wrap: break-word;  /* modern browsers */
   white-space: pre-wrap;      /* keep line breaks & wrap */
 }
+
+.password-card {
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.password-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-form .form-row {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.password-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.password-toggle-btn,
+.save-btn {
+  background: #e92121ff;
+  color: #fff;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.password-toggle-btn:hover,
+.save-btn:hover {
+  background: #e01b1bff;
+}
+
+
+.top-right-btn {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 20px;
+}
+
+.gallery-btn {
+ background-color: #e01a1a;
+    color: white;
+    padding: 14px 22px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.gallery-btn:hover {
+  background-color: #b03009ff;
+}

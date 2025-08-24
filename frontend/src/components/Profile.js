@@ -3,6 +3,7 @@ import axios from "axios";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "../styles/Profile.css";
+import { useNavigate } from "react-router-dom"; // ✅ Import navigation hook
 
 const API_BASE = process.env.REACT_APP_API_BASE || "http://localhost:5000";
 
@@ -18,9 +19,15 @@ const formatDate = (dateString) => {
 };
 
 const Profile = () => {
+    const navigate = useNavigate(); // ✅ initialize navigation
   // load user from localStorage (login stores the user with token)
   const storedUser = JSON.parse(localStorage.getItem("user") || "{}");
   const token = storedUser?.token || null;
+
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [pwdLoading, setPwdLoading] = useState(false);
 
   // original server-backed data
   const [user, setUser] = useState(storedUser || {});
@@ -33,23 +40,6 @@ const Profile = () => {
   );
   const [profilePicFile, setProfilePicFile] = useState(null);
 
-  // media gallery
-  const [gallery, setGallery] = useState(() => {
-    const imgs = (storedUser.photos || []).map((url, i) => ({
-      id: `old-img-${i}`,
-      url,
-      type: "image",
-      isNew: false,
-    }));
-    const vids = (storedUser.videos || []).map((url, i) => ({
-      id: `old-vid-${i}`,
-      url,
-      type: "video",
-      isNew: false,
-    }));
-    return [...imgs, ...vids];
-  });
-
   const [editing, setEditing] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -57,21 +47,37 @@ const Profile = () => {
   useEffect(() => {
     setUpdatedUser({ ...user });
     setProfilePicPreview(user.profilePic || null);
-
-    const imgs = (user.photos || []).map((url, i) => ({
-      id: `old-img-${i}`,
-      url,
-      type: "image",
-      isNew: false,
-    }));
-    const vids = (user.videos || []).map((url, i) => ({
-      id: `old-vid-${i}`,
-      url,
-      type: "video",
-      isNew: false,
-    }));
-    setGallery([...imgs, ...vids]);
   }, [user]);
+
+  const handleChangePassword = async () => {
+    if (!token) {
+      alert("You must be logged in to update password.");
+      return;
+    }
+    if (!oldPassword || !newPassword) {
+      alert("Please fill in both fields.");
+      return;
+    }
+
+    setPwdLoading(true);
+    try {
+      const res = await axios.put(
+        `${API_BASE}/api/auth/change-password`,
+        { oldPassword, newPassword },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+
+      alert(res.data.message || "Password updated successfully.");
+      setShowPasswordForm(false);
+      setOldPassword("");
+      setNewPassword("");
+    } catch (err) {
+      console.error("Change password failed:", err.response || err.message);
+      alert(err.response?.data?.message || "Failed to update password.");
+    } finally {
+      setPwdLoading(false);
+    }
+  };
 
   // Text inputs change handler
   const handleChange = (e) => {
@@ -88,31 +94,11 @@ const Profile = () => {
     setUpdatedUser((p) => ({ ...p, profilePic: URL.createObjectURL(file) }));
   };
 
-  // Remove a gallery item locally
-  const handleRemoveMedia = (id) => {
-    setGallery((prev) => prev.filter((item) => item.id !== id));
-  };
-
   // Cancel edits
   const handleCancel = () => {
     setUpdatedUser({ ...user });
     setProfilePicPreview(user.profilePic || null);
     setProfilePicFile(null);
-
-    const imgs = (user.photos || []).map((url, i) => ({
-      id: `old-img-${i}`,
-      url,
-      type: "image",
-      isNew: false,
-    }));
-    const vids = (user.videos || []).map((url, i) => ({
-      id: `old-vid-${i}`,
-      url,
-      type: "video",
-      isNew: false,
-    }));
-    setGallery([...imgs, ...vids]);
-
     setEditing(false);
   };
 
@@ -154,10 +140,6 @@ const Profile = () => {
         formData.append("profilePic", profilePicFile);
       }
 
-      // Only new files
-      const newFiles = gallery.filter((g) => g.isNew && g.file).map((g) => g.file);
-      newFiles.forEach((file) => formData.append("files", file));
-
       // Request
       const res = await axios.put(`${API_BASE}/api/auth/profile`, formData, {
         headers: {
@@ -176,22 +158,6 @@ const Profile = () => {
         setUpdatedUser({ ...updated });
         setProfilePicFile(null);
         setProfilePicPreview(updated.profilePic || null);
-
-        // rebuild gallery
-        const imgs = (updated.photos || []).map((url, i) => ({
-          id: `old-img-${i}`,
-          url,
-          type: "image",
-          isNew: false,
-        }));
-        const vids = (updated.videos || []).map((url, i) => ({
-          id: `old-vid-${i}`,
-          url,
-          type: "video",
-          isNew: false,
-        }));
-        setGallery([...imgs, ...vids]);
-
         setEditing(false);
         alert("Profile updated successfully.");
       } else {
@@ -205,7 +171,6 @@ const Profile = () => {
     }
   };
 
-  // Fields to render
   // Fields to render
   const allFields = [
     { label: "Name", key: "name" },
@@ -231,6 +196,12 @@ const Profile = () => {
   return (
     <>
       <Navbar />
+
+        <div className="top-right-btn">
+        <button onClick={() => navigate("/gallery")} className="gallery-btn">
+          Your Gallery
+        </button>
+      </div>
       <div className="profile-container">
         <h2 className="profile-title">Your Profile</h2>
 
@@ -269,80 +240,104 @@ const Profile = () => {
           )}
         </div>
 
-      {/* Info card */}
-<div className="profile-info-card">
-  <div className="profile-info-grid">
-    {fields.map(({ label, key, textarea }) => (
-      <div key={key} className="form-row">
-        <label>{label}:</label>
-        {editing ? (
-          textarea ? (
-            <textarea
-              name={key}
-              value={updatedUser[key] || ""}
-              onChange={handleChange}
-              rows="4"
-              style={{
-                resize: "vertical",
-                overflowWrap: "break-word",
-                whiteSpace: "pre-wrap",
-              }}
-              disabled={user.role === "recruiter" && ["role", "identity"].includes(key)}
-            />
-          ) : key === "dob" ? (
-            <input
-              type="date"
-              name={key}
-              value={updatedUser.dob ? updatedUser.dob.split("T")[0] : ""}
-              onChange={handleChange}
-            />
-          ) : (
-            <input
-              type="text"
-              name={key}
-              value={updatedUser[key] || ""}
-              onChange={handleChange}
-              disabled={user.role === "recruiter" && ["role", "identity"].includes(key)}
-            />
-          )
-        ) : key === "dob" ? (
-          <p>{formatDate(updatedUser.dob)}</p>
-        ) : (
-          <p>{updatedUser[key] || "Not provided"}</p>
-        )}
-      </div>
-    ))}
-  </div>
-</div>
-
-        {/* Media section (hide for recruiters) */}
-        {user.role !== "recruiter" && (
-          <div className="media-section">
-            <h3>Your Photos & Videos</h3>
-            <div className="gallery">
-              {gallery.length > 0 ? (
-                gallery.map((media) => (
-                  <div key={media.id} className="media-item">
-                    {media.type === "image" ? (
-                      <img src={media.url} alt={media.id} className="gallery-img" />
-                    ) : (
-                      <video src={media.url} controls className="gallery-video" />
-                    )}
-                    <button
-                      className="remove-media-btn"
-                      onClick={() => handleRemoveMedia(media.id)}
-                      title="Remove this item locally"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))
-              ) : (
-                <p>No media uploaded yet.</p>
-              )}
-            </div>
+        {/* Info card */}
+        <div className="profile-info-card">
+          <div className="profile-info-grid">
+            {fields.map(({ label, key, textarea }) => (
+              <div key={key} className="form-row">
+                <label>{label}:</label>
+                {editing ? (
+                  textarea ? (
+                    <textarea
+                      name={key}
+                      value={updatedUser[key] || ""}
+                      onChange={handleChange}
+                      rows="4"
+                      style={{
+                        resize: "vertical",
+                        overflowWrap: "break-word",
+                        whiteSpace: "pre-wrap",
+                      }}
+                      disabled={
+                        user.role === "recruiter" &&
+                        ["role", "identity"].includes(key)
+                      }
+                    />
+                  ) : key === "dob" ? (
+                    <input
+                      type="date"
+                      name={key}
+                      value={updatedUser.dob ? updatedUser.dob.split("T")[0] : ""}
+                      onChange={handleChange}
+                    />
+                  ) : (
+                    <input
+                      type="text"
+                      name={key}
+                      value={updatedUser[key] || ""}
+                      onChange={handleChange}
+                      disabled={
+                        user.role === "recruiter" &&
+                        ["role", "identity"].includes(key)
+                      }
+                    />
+                  )
+                ) : key === "dob" ? (
+                  <p>{formatDate(updatedUser.dob)}</p>
+                ) : (
+                  <p>{updatedUser[key] || "Not provided"}</p>
+                )}
+              </div>
+            ))}
           </div>
-        )}
+        </div>
+
+        {/* Password card */}
+        <div className="password-card">
+          <div className="password-card-header">
+            <button
+              className="password-toggle-btn"
+              onClick={() => setShowPasswordForm((s) => !s)}
+            >
+              {showPasswordForm ? "Close" : "Change Password"}
+            </button>
+          </div>
+
+          {showPasswordForm && (
+            <div className="password-form">
+              <div className="form-row">
+                <label>Old Password:</label>
+                <input
+                  type="password"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                />
+              </div>
+              <div className="form-row">
+                <label>New Password:</label>
+                <input
+                  type="password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
+              <div className="password-actions">
+                <button
+                  onClick={handleChangePassword}
+                  className="save-btn"
+                  disabled={pwdLoading}
+                >
+                  {pwdLoading ? "Updating..." : "Update Password"}
+                </button>
+
+
+              </div>
+                   
+            </div>
+
+            
+          )}
+        </div>
       </div>
       <Footer />
     </>

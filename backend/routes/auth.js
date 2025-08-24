@@ -1,6 +1,6 @@
 // routes/authRoutes.js
 import express from "express";
-import { signup, login, updateUserProfile } from "../controllers/authController.js";
+import { signup, login, updateUserProfile, changePassword } from "../controllers/authController.js";
 import upload from "../middleware/upload.js";
 import { protect } from "../middleware/authMiddleware.js"; // ✅ import protect
 
@@ -29,5 +29,7 @@ router.put(
   ]),
   updateUserProfile
 );
+
+router.put("/change-password", protect, changePassword); // ✅ new route
 
 export default router;

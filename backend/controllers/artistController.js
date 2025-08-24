@@ -1,5 +1,5 @@
 import User from "../models/User.js";
-
+import Application from "../models/Application.js"; // add this line
 
 // Get all artists
 export const getArtists = async (req, res) => {

@@ -10,4 +10,5 @@ router.get("/", protect, getArtists);
 // PUT /api/artists/:id/status → update approval/rejection
 router.put("/:id/status", protect, updateArtistStatus);
 
+
 export default router;

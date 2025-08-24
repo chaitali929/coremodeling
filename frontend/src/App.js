@@ -1,8 +1,6 @@
-
 import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import Login from "./components/Login";
-
 import HomePage from "./components/Homepage";
 import ArtistsPage from "./components/ArtistsPage";
 import AdminArtistsPage from "./components/AdminArtistsPage";
@@ -13,9 +11,9 @@ import Blogs from "./components/Blogs";
 import AdminBlogs from "./components/AdminBlogs";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./components/Profile";
-import PostedJobs from "./components/PostedJobs"; // <-- import new page
+import PostedJobs from "./components/PostedJobs";
 import AppliedJobs from "./components/AppliedJobs";
-
+import Gallery from "./components/Gallery";   // ✅ import Gallery
 
 // Wrapper to conditionally render Navbar
 const AppWrapper = () => {
@@ -25,12 +23,35 @@ const AppWrapper = () => {
 
   return (
     <>
-     
       <Routes>
         <Route path="/" element={<Login />} />
-<Route path="/signup" element={<Navigate to="/" />} />
- <Route path="/posted-jobs" element={<PostedJobs />} /> {/* new route */}
- <Route path="/applied-jobs" element={<AppliedJobs />} /> {/* new route */}
+        <Route path="/signup" element={<Navigate to="/" />} />
+
+        {/* ✅ New routes */}
+        <Route
+          path="/posted-jobs"
+          element={
+            <ProtectedRoute role="recruiter">
+              <PostedJobs />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/applied-jobs"
+          element={
+            <ProtectedRoute role="artist">
+              <AppliedJobs />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/gallery"
+          element={
+            <ProtectedRoute>
+              <Gallery />  {/* ✅ Logged-in user's gallery */}
+            </ProtectedRoute>
+          }
+        />
 
         {/* Protected routes */}
         <Route
@@ -98,19 +119,17 @@ const AppWrapper = () => {
           }
         />
 
-
         <Route
-  path="/profile"
-  element={
-    <ProtectedRoute>
-      <Profile />
-    </ProtectedRoute>
-  }
-/>
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
 
         {/* fallback */}
         <Route path="*" element={<Navigate to="/" />} />
-
       </Routes>
     </>
   );

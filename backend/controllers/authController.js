@@ -3,6 +3,7 @@ import User from "../models/User.js";
 import jwt from "jsonwebtoken";
 import { uploadBufferToCloudinary } from "../utils/cloudinaryUpload.js";
 
+
 const generateToken = (id) =>
   jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: "7d" });
 
@@ -218,6 +219,39 @@ if (identity) user.identity = identity;
     });
   } catch (error) {
     console.error("Update profile error:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+
+// ✅ Change Password
+export const changePassword = async (req, res) => {
+  try {
+    const userId = req.user.id; // from JWT middleware
+    const { oldPassword, newPassword } = req.body;
+
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({ message: "Both old and new password are required" });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // check old password
+    const isMatch = await user.matchPassword(oldPassword);
+    if (!isMatch) {
+      return res.status(400).json({ message: "Old password is incorrect" });
+    }
+
+    // set new password (will trigger bcrypt pre-save hook)
+    user.password = newPassword;
+    await user.save();
+
+    res.json({ message: "Password updated successfully. Please login again with new password." });
+  } catch (error) {
+    console.error("Change password error:", error);
     res.status(500).json({ message: error.message });
   }
 };

@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "../styles/ArtistsPage.css";
 
-const backendURL = "http://localhost:5000"; // still needed for API requests
+const backendURL = "http://localhost:5000";
 
 const AdminArtistsPage = () => {
   const [artists, setArtists] = useState([]);
@@ -12,26 +12,21 @@ const AdminArtistsPage = () => {
 
   const user = JSON.parse(localStorage.getItem("user"));
 
- useEffect(() => {
-  const fetchArtists = async () => {
-    try {
-      const res = await fetch(`${backendURL}/api/artists`, {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      });
-      let data = await res.json();
-
-      // 🔽 sort descending by createdAt (assuming backend sends createdAt)
-      data = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-      setArtists(data);
-    } catch (err) {
-      console.error("Error fetching artists:", err);
-    }
-  };
-  fetchArtists();
-}, [user]);
+  useEffect(() => {
+    const fetchArtists = async () => {
+      try {
+        const res = await fetch(`${backendURL}/api/artists`, {
+          headers: { Authorization: `Bearer ${user?.token}` },
+        });
+        let data = await res.json();
+        data = data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+        setArtists(data);
+      } catch (err) {
+        console.error("Error fetching artists:", err);
+      }
+    };
+    fetchArtists();
+  }, [user]);
 
   const handleStatusUpdate = async (artistId, status) => {
     try {
@@ -58,6 +53,12 @@ const AdminArtistsPage = () => {
     }
   };
 
+  const getFirstMedia = (artist) => {
+    if (artist.photos?.length > 0) return { type: "image", src: artist.photos[0] };
+    if (artist.videos?.length > 0) return { type: "video", src: artist.videos[0] };
+    return null;
+  };
+
   return (
     <>
       <Navbar />
@@ -65,68 +66,68 @@ const AdminArtistsPage = () => {
         <h1 className="page-title">Admin - Manage Artists</h1>
         <div className="artists-grid">
           {artists.length > 0 ? (
-            artists.map((artist) => (
-              <div
-                className="artist-card"
-                key={artist._id}
-                onClick={() => setSelectedArtist(artist)}
-              >
-                {artist.photos?.length > 0 && (
-                  <img
-                    src={artist.photos[0]} // 👈 already a Cloudinary URL
-                    alt={artist.name}
-                    className="artist-photo"
-                  />
-                )}
-                {artist.videos?.length > 0 && (
-                  <video
-                    className="artist-video"
-                    controls
-                    src={artist.videos[0]} // 👈 already a Cloudinary URL
-                  />
-                )}
-                <h2>{artist.name}</h2>
+            artists.map((artist) => {
+              const firstMedia = getFirstMedia(artist);
+              return (
+                <div
+                  className="artist-card"
+                  key={artist._id || `artist-${Math.random()}`}
+                  onClick={() => setSelectedArtist(artist)}
+                >
+                  {firstMedia?.type === "image" && (
+                    <img
+                      src={firstMedia.src}
+                      alt={artist.name}
+                      className="artist-photo"
+                    />
+                  )}
+                  {firstMedia?.type === "video" && (
+                    <video className="artist-video" controls src={firstMedia.src} />
+                  )}
 
-                <div className="artist-info">
-                  <p><strong>Role:</strong> {artist.identity || artist.role}</p>
-                  <p><strong>Email:</strong> {artist.email}</p>
-                  <p><strong>Contact:</strong> {artist.contact || "N/A"}</p>
-                  <p><strong>Gender:</strong> {artist.gender || "N/A"}</p>
-                  <p><strong>DOB:</strong> {artist.dob ? new Date(artist.dob).toLocaleDateString() : "N/A"}</p>
-                  <p><strong>City:</strong> {artist.city || "N/A"}</p>
-                  <p><strong>State:</strong> {artist.state || "N/A"}</p>
-                  <p><strong>Country:</strong> {artist.country || "N/A"}</p>
-                  <p><strong>Language:</strong> {artist.language || "N/A"}</p>
-                  <p>{artist.description}</p>
-                  <p><strong>Status:</strong> {artist.status || "pending"}</p>
-                </div>
+                  <h2>{artist.name}</h2>
 
-                <div className="status-buttons">
-                  <button
-                    className="approve-btn"
-                    disabled={artist.status === "approved"}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleStatusUpdate(artist._id, "approved");
-                    }}
-                  >
-                    {artist.status === "approved" ? "Approved" : "Approve"}
-                  </button>
-                  <button
-                    className="reject-btn"
-                    disabled={artist.status === "rejected"}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleStatusUpdate(artist._id, "rejected");
-                    }}
-                  >
-                    {artist.status === "rejected" ? "Rejected" : "Reject"}
-                  </button>
+                  <div className="artist-info">
+                    <p><strong>Role:</strong> {artist.identity || artist.role}</p>
+                    <p><strong>Email:</strong> {artist.email}</p>
+                    <p><strong>Contact:</strong> {artist.contact || "N/A"}</p>
+                    <p><strong>Gender:</strong> {artist.gender || "N/A"}</p>
+                    <p><strong>DOB:</strong> {artist.dob ? new Date(artist.dob).toLocaleDateString() : "N/A"}</p>
+                    <p><strong>City:</strong> {artist.city || "N/A"}</p>
+                    <p><strong>State:</strong> {artist.state || "N/A"}</p>
+                    <p><strong>Country:</strong> {artist.country || "N/A"}</p>
+                    <p><strong>Language:</strong> {artist.language || "N/A"}</p>
+                    <p>{artist.description}</p>
+                    <p><strong>Status:</strong> {artist.status || "pending"}</p>
+                  </div>
+
+                  <div className="status-buttons">
+                    <button
+                      className="approve-btn"
+                      disabled={artist.status === "approved"}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleStatusUpdate(artist._id, "approved");
+                      }}
+                    >
+                      {artist.status === "approved" ? "Approved" : "Approve"}
+                    </button>
+                    <button
+                      className="reject-btn"
+                      disabled={artist.status === "rejected"}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleStatusUpdate(artist._id, "rejected");
+                      }}
+                    >
+                      {artist.status === "rejected" ? "Rejected" : "Reject"}
+                    </button>
+                  </div>
                 </div>
-              </div>
-            ))
+              );
+            })
           ) : (
-            <p>No artists found.</p>
+            <p key="no-artists">No artists found.</p>
           )}
         </div>
 
@@ -144,30 +145,33 @@ const AdminArtistsPage = () => {
               <h2>{selectedArtist.name}</h2>
 
               <div className="artist-photos-gallery">
-                {selectedArtist.photos?.map((photo, idx) => (
-                  <img
-                    key={idx}
-                    src={photo} // 👈 Cloudinary URL
-                    alt={`${selectedArtist.name} ${idx}`}
-                    className="artist-gallery-photo"
-                    onClick={() =>
-                      setPreviewMedia({ type: "image", src: photo })
-                    }
-                  />
-                ))}
+                {[...(selectedArtist.photos || []), ...(selectedArtist.videos || [])]
+                  .slice(0, 4)
+                  .map((media, idx) =>
+                    media.includes("mp4") ? (
+                      <video
+                        key={`video-${media}-${idx}`}
+                        controls
+                        className="artist-gallery-photo"
+                        onClick={() => setPreviewMedia({ type: "video", src: media })}
+                      >
+                        <source src={media} type="video/mp4" />
+                      </video>
+                    ) : (
+                      <img
+                        key={`img-${media}-${idx}`}
+                        src={media}
+                        alt={`${selectedArtist.name} ${idx}`}
+                        className="artist-gallery-photo"
+                        onClick={() => setPreviewMedia({ type: "image", src: media })}
+                      />
+                    )
+                  )}
 
-                {selectedArtist.videos?.map((video, idx) => (
-                  <video
-                    key={idx}
-                    controls
-                    className="artist-gallery-photo"
-                    onClick={() =>
-                      setPreviewMedia({ type: "video", src: video })
-                    }
-                  >
-                    <source src={video} type="video/mp4" />
-                  </video>
-                ))}
+                {((selectedArtist.photos?.length || 0) +
+                  (selectedArtist.videos?.length || 0)) > 4 && (
+                  <p className="premium-msg">✨ Buy premium to see more ✨</p>
+                )}
               </div>
 
               <div className="artist-info">
@@ -191,18 +195,9 @@ const AdminArtistsPage = () => {
         {previewMedia && (
           <div className="media-preview" onClick={() => setPreviewMedia(null)}>
             {previewMedia.type === "image" ? (
-              <img
-                src={previewMedia.src}
-                alt="Preview"
-                className="preview-content"
-              />
+              <img src={previewMedia.src} alt="Preview" className="preview-content" />
             ) : (
-              <video
-                src={previewMedia.src}
-                controls
-                autoPlay
-                className="preview-content"
-              />
+              <video src={previewMedia.src} controls autoPlay className="preview-content" />
             )}
           </div>
         )}

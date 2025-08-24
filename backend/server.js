@@ -11,6 +11,7 @@ import jobRoutes from "./routes/jobRoutes.js";
 import blogRoutes from "./routes/blogRoutes.js";
 import applicationRoutes from "./routes/applicationRoutes.js";
 
+import userRoutes from "./routes/userRoutes.js";
 
 
 
@@ -34,6 +35,7 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/artists", artistRoutes); // ✅ register new route
 app.use("/api/applications", applicationRoutes);
+app.use("/api/users", userRoutes);
 
 
 // Pre-create admin if not exists

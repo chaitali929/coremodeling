@@ -1,3 +1,9 @@
+
+.profile-body{
+  background-color: #d9d9d9;
+}
+
+
 .profile-container {
   padding: 20px;
 }
@@ -93,13 +99,14 @@
   font-weight: bold;
   text-align: center;
   margin-bottom: 20px;
+  color: black;
 }
 
 .profile-avatar-circle {
   width: 140px;
   height: 140px;
   border-radius: 50%;
-  border: 3px solid #ddd;
+  border: 3px solid #b80a0a;
   object-fit: cover;
 }
 
@@ -120,7 +127,7 @@ textarea {
 }
 
 .edit-btn {
-  background: #007bff;
+  background: #cf0d0d;
   color: white;
 }
 
@@ -130,7 +137,7 @@ textarea {
 }
 
 .cancel-btn {
-  background: #dc3545;
+  background: #6e6162;
   color: white;
 }
 
@@ -146,26 +153,11 @@ textarea {
 .password-card {
   background: #fff;
   padding: 20px;
-  margin-top: 20px;
+
   border-radius: 10px;
 }
 
-.password-card-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
 
-.password-form .form-row {
-  margin-bottom: 15px;
-  display: flex;
-  flex-direction: column;
-}
-
-.password-actions {
-  display: flex;
-  justify-content: flex-end;
-}
 
 .password-toggle-btn,
 .save-btn {
@@ -199,8 +191,50 @@ textarea {
   font-weight: bold;
   transition: 0.3s;
   font-size: 15px;
+      margin-top: 10px;
 }
 
 .gallery-btn:hover {
   background-color: #b03009ff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Profile info card stays right */
+.profile-info-card {
+  flex: 1;  /* take remaining space */
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin: 0;   /* remove top margin since aligned with avatar */
+  width: auto; /* allow flexible width */
+
+}
+
+/* Change grid to 3 columns instead of 2 */
+.profile-info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3-column layout */
+  gap: 15px 25px;
+}
+
+/* Change password card goes below the form (still aligned to right) */
+.password-card {
+margin-left: 780px;
+margin-top: -422px;
+margin-bottom: 400px;
 }

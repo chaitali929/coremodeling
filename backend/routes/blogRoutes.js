@@ -133,6 +133,7 @@ router.put("/:id", protect, upload.single("media"), async (req, res) => {
   }
 });
 
+
 // Delete blog (admin only)
 router.delete("/:id", protect, async (req, res) => {
   try {
@@ -145,10 +146,15 @@ router.delete("/:id", protect, async (req, res) => {
       return res.status(404).json({ message: "Blog not found" });
     }
 
-    // Remove media from Cloudinary if exists
-    if (blog.cloudinaryId) {
-      await cloudinary.uploader.destroy(blog.cloudinaryId, {
-        resource_type: blog.mediaType || "image",
+    // ✅ If blog has media, remove from Cloudinary
+    if (blog.media) {
+      const parts = blog.media.split("/");
+      const filename = parts[parts.length - 1].split(".")[0];
+      const folder = "blogs"; // adjust if you used folders in Cloudinary
+      const publicId = `${folder}/${filename}`;
+
+      await cloudinary.uploader.destroy(publicId, {
+        resource_type: "image",
       });
     }
 
@@ -159,5 +165,6 @@ router.delete("/:id", protect, async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 export default router;

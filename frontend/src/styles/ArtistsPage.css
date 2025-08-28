@@ -1,6 +1,6 @@
 .artists-page {
-  padding: 2rem;
-  text-align: center;
+  padding: 0rem;
+  
 }
 
 .page-title {
@@ -34,6 +34,7 @@
   object-fit: cover;
   border-radius: 10px;
   margin-bottom: 1rem;
+  cursor: pointer;
 }
 
 .artist-video {
@@ -63,6 +64,7 @@
   object-fit: cover;
   margin-bottom: 10px;
   border-radius: 5px;
+
 }
 
 /* Scrollable info section (vertical only) */
@@ -150,6 +152,7 @@
   flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 15px;
+  cursor: pointer;
 }
 
 .artist-gallery-photo {

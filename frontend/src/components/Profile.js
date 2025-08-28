@@ -196,12 +196,15 @@ const Profile = () => {
   return (
     <>
       <Navbar />
+<div className="profile-body">
+      {user.role !== "recruiter" && (
+  <div className="top-right-btn">
+    <button onClick={() => navigate("/gallery")} className="gallery-btn">
+      Your Gallery
+    </button>
+  </div>
+)}
 
-        <div className="top-right-btn">
-        <button onClick={() => navigate("/gallery")} className="gallery-btn">
-          Your Gallery
-        </button>
-      </div>
       <div className="profile-container">
         <h2 className="profile-title">Your Profile</h2>
 
@@ -338,6 +341,7 @@ const Profile = () => {
             
           )}
         </div>
+      </div>
       </div>
       <Footer />
     </>

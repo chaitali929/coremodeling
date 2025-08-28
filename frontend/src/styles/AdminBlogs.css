@@ -1,8 +1,13 @@
+.blogs-body{
+  background-color: #dad8d8;
+}
+
+
 .admin-blogs-container {
   max-width: 1200px;
   margin: auto;
   padding: 20px;
-  background-color: #000; /* black background for page */
+  background-color: #dad8d8; /* black background for page */
 }
 
 /* Floating blog form overlay as a white card */
@@ -78,11 +83,12 @@
 /* Sidebar */
 .blogs-sidebar {
   width: 350px;
-  background-color: #111;
-  border: 1px solid #ff0000;
+  background-color: #f2eded;
+  border: 1px solid #7c0303;
   border-radius: 8px;
   padding: 10px;
-  margin-left: -160px;
+  margin-left: -140px;
+  margin-top: 10px;
 
   /* Fixed height with independent scroll */
   height: 600px; /* fixed height */
@@ -96,13 +102,13 @@
 }
 
 .blogs-sidebar::-webkit-scrollbar-thumb {
-  background-color: #ff0000;
+  background-color: #630303;
   border-radius: 4px;
 }
 
 /* Sidebar heading */
 .sidebar-heading {
-  color: #ff0000;
+  color: #a60c0c;
   margin-bottom: 10px;
   font-size: 20px;
   text-align: center;
@@ -114,13 +120,13 @@
 .blog-title-item {
   padding: 10px;
   cursor: pointer;
-  color: #fff;
+  color: #000000;
   border-bottom: 1px solid #333;
 }
 
 .blog-title-item.active {
-  background-color: #ff0000;
-  color: #fff;
+  background-color: #9b0808;
+  color: #ffffff;
   font-weight: bold;
 }
 
@@ -140,14 +146,14 @@
 }
 
 .blogs-content::-webkit-scrollbar-thumb {
-  background-color: #000; /* black for content scrollbar */
+  background-color: #aeaaaa; /* black for content scrollbar */
   border-radius: 4px;
 }
 
 /* Selected blog styling */
 .selected-blog .blog-title {
   font-weight: bold;
-  color: #ff0000;
+  color: #9b0606;
   margin-bottom: 10px;
   margin-top: 20px;
 }
@@ -162,7 +168,7 @@
 
 .selected-blog .blog-content p {
   text-align: justify;
-  color: #fff;
+  color: #000000;
   line-height: 1.6;
 }
 
@@ -176,7 +182,7 @@
 }
 
 .post-blog-btn {
-  background-color: #ff4500; /* orange-red */
+  background-color: #950404; /* orange-red */
   color: white;
   padding: 15px 25px;
   border: none;
@@ -187,7 +193,7 @@
 }
 
 .post-blog-btn:hover {
-  background-color: #e03e00;
+  background-color: #650202;
 }
 
 .delete-blog-btn {

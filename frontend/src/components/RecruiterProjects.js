@@ -194,7 +194,7 @@ const RecruiterProjects = () => {
             <button className="close-btn" onClick={() => setShowForm(false)}>
               &times;
             </button>
-            <h2>Post a Job for Artists</h2>
+            <h2 className="heading">Post a Job for Artists</h2>
             {message && <p className="form-message">{message}</p>}
             <form className="job-form" onSubmit={handleSubmit}>
               <label>Job Title</label>

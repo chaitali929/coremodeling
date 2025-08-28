@@ -1,6 +1,6 @@
 .projects-page {
-  padding: 20px;
-  background-color: #f9f9f9;
+  padding: 0px;
+  background-color: #ffffff;
   min-height: 100vh;
 }
 
@@ -9,9 +9,15 @@
   text-align: center;
   font-size: 2rem;
   font-weight: 700;
-  color: #d12424;
+  color: #ffffff;
   margin: 30px 0;
   letter-spacing: 1px;
+      font-family: "Playball", cursive;
+  font-weight: 100;
+  font-style: normal;
+  background-color: #a10a0a;
+  padding:30px;
+  margin-top: -50px;
 }
 
 /* Projects grid */
@@ -40,7 +46,7 @@
 
 .project-card h3 {
   font-size: 1.3rem;
-  color: #222;
+  color: #b80707;
   margin-bottom: 10px;
   border-bottom: 1px solid #ccc;
   padding-bottom: 5px;
@@ -102,7 +108,7 @@
 
 
 .apply-btn {
-  background: #2563eb;
+  background: #c00808;
   color: white;
   padding: 8px 16px;
   border: none;
@@ -112,7 +118,7 @@
   transition: 0.2s;
 }
 .apply-btn:hover {
-  background: #1e40af;
+  background: #6d0505;
 }
 
 .modal-overlay {

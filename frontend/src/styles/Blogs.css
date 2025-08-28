@@ -1,8 +1,11 @@
+
+
+
 .blogs-container {
   max-width: 1200px;
   margin: auto;
-  padding: 20px;
-  background-color: #000; /* black background */
+  padding: 0px;
+  background-color: #d9d9d9; /* black background */
   margin-top: 70px;
 }
 
@@ -16,7 +19,7 @@
 /* Sidebar */
 .blogs-sidebar {
   width: 350px;
-  background-color: #111;
+  background-color: #ffffff;
   border: 1px solid #ff0000;
   border-radius: 8px;
   padding: 10px;
@@ -40,7 +43,7 @@
 
 /* Sidebar heading */
 .sidebar-heading {
-  color: #ff0000;
+  color: #8d0505;
   margin-bottom: 10px;
   font-size: 20px;
   text-align: center;

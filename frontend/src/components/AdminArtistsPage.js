@@ -59,6 +59,47 @@ const AdminArtistsPage = () => {
     return null;
   };
 
+const handleDeleteMedia = async (artistId, url, type) => {
+  try {
+    const res = await fetch(`${backendURL}/api/artists/${artistId}/media`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${user?.token}`,
+      },
+      body: JSON.stringify({ url, type }), // include media type
+    });
+
+    if (!res.ok) {
+      const errorData = await res.json();
+      throw new Error(errorData.message || "Failed to delete media");
+    }
+
+    const updatedArtist = await res.json();
+
+    // ✅ Update local state
+    setArtists((prev) =>
+      prev.map((a) =>
+        a._id === artistId
+          ? { ...a, photos: updatedArtist.photos, videos: updatedArtist.videos }
+          : a
+      )
+    );
+
+    if (selectedArtist && selectedArtist._id === artistId) {
+      setSelectedArtist((prev) => ({
+        ...prev,
+        photos: updatedArtist.photos,
+        videos: updatedArtist.videos,
+      }));
+    }
+
+    console.log("Deleted successfully:", updatedArtist);
+  } catch (err) {
+    console.error("Error deleting media:", err);
+  }
+};
+
   return (
     <>
       <Navbar />
@@ -149,22 +190,40 @@ const AdminArtistsPage = () => {
                   .slice(0, 4)
                   .map((media, idx) =>
                     media.includes("mp4") ? (
-                      <video
-                        key={`video-${media}-${idx}`}
-                        controls
-                        className="artist-gallery-photo"
-                        onClick={() => setPreviewMedia({ type: "video", src: media })}
-                      >
-                        <source src={media} type="video/mp4" />
-                      </video>
+                      <div key={`video-${media}-${idx}`} className="media-item">
+                        <video
+                          controls
+                          className="artist-gallery-photo"
+                          onClick={() => setPreviewMedia({ type: "video", src: media })}
+                        >
+                          <source src={media} type="video/mp4" />
+                        </video>
+                        <button
+                          className="delete-btn"
+                          onClick={() =>
+                            handleDeleteMedia(selectedArtist._id, media, "video")
+                          }
+                        >
+                          Delete
+                        </button>
+                      </div>
                     ) : (
-                      <img
-                        key={`img-${media}-${idx}`}
-                        src={media}
-                        alt={`${selectedArtist.name} ${idx}`}
-                        className="artist-gallery-photo"
-                        onClick={() => setPreviewMedia({ type: "image", src: media })}
-                      />
+                      <div key={`img-${media}-${idx}`} className="media-item">
+                        <img
+                          src={media}
+                          alt={`${selectedArtist.name} ${idx}`}
+                          className="artist-gallery-photo"
+                          onClick={() => setPreviewMedia({ type: "image", src: media })}
+                        />
+                        <button
+                          className="delete-btn"
+                          onClick={() =>
+                            handleDeleteMedia(selectedArtist._id, media, "photo")
+                          }
+                        >
+                          Delete
+                        </button>
+                      </div>
                     )
                   )}
 

@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "../styles/style.css";
+import "../styles/homepage.css"
 
 const HomePage = () => {
   const user = JSON.parse(localStorage.getItem("user"));

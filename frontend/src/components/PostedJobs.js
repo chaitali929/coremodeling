@@ -82,7 +82,7 @@ const PostedJobs = () => {
           <div className="applicants-section" ref={applicantsRef}>
             <h3>
               Approved Applicants for:{" "}
-              <span style={{ color: "orange" }}>{selectedJobDetails?.jobTitle}</span>
+              <span style={{ color: "white" }}>{selectedJobDetails?.jobTitle}</span>
             </h3>
             {applications.length > 0 ? (
               applications.map((app) => (

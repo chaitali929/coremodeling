@@ -24,7 +24,7 @@ router.post("/upload", protect, upload.single("file"), async (req, res) => {
           { resource_type, folder: `users/${user._id}` },
           (error, result) => {
             if (error) {
-              console.error("Cloudinary upload error:", error); // ✅ log error
+              console.error("Cloudinary upload error:", error);
               reject(error);
             } else {
               resolve(result);
@@ -44,13 +44,10 @@ router.post("/upload", protect, upload.single("file"), async (req, res) => {
 
     res.json({ photos: user.photos, videos: user.videos, name: user.name });
   } catch (error) {
-    console.error("Upload route error:", error); // ✅ log full backend error
+    console.error("Upload route error:", error);
     res.status(500).json({ message: "Upload failed", error: error.message });
   }
 });
-
-
-
 
 // ✅ Get logged-in user's gallery
 router.get("/gallery", protect, async (req, res) => {
@@ -62,6 +59,43 @@ router.get("/gallery", protect, async (req, res) => {
     res.json({ photos: user.photos, videos: user.videos, name: user.name });
   } catch (err) {
     res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+// ✅ Delete photo/video
+router.delete("/delete", protect, async (req, res) => {
+  try {
+    const { url, type } = req.body;
+    if (!url || !type) {
+      return res.status(400).json({ message: "URL and type are required" });
+    }
+
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    // Extract Cloudinary public_id from the URL
+    const parts = url.split("/");
+    const filename = parts[parts.length - 1].split(".")[0];
+    const folder = `users/${user._id}`;
+    const publicId = `${folder}/${filename}`;
+
+    // Delete from Cloudinary
+    const resource_type = type === "photo" ? "image" : "video";
+    await cloudinary.uploader.destroy(publicId, { resource_type });
+
+    // Remove from MongoDB user document
+    if (type === "photo") {
+      user.photos = user.photos.filter((p) => p !== url);
+    } else {
+      user.videos = user.videos.filter((v) => v !== url);
+    }
+
+    await user.save();
+
+    res.json({ photos: user.photos, videos: user.videos, name: user.name });
+  } catch (err) {
+    console.error("Delete route error:", err);
+    res.status(500).json({ message: "Delete failed", error: err.message });
   }
 });
 

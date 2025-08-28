@@ -1,15 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Playball&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
 /* General */
 body {
   margin: 0;
   font-family: "Poppins", sans-serif;
-  background: black;
-  color: white;
+  background: rgb(255, 255, 255);
+  color: rgb(251, 251, 251);
   animation: fadeInBody 1s ease-in-out;
 }
 
 /* Navbar */
 .navbar {
-  background-color: red;
+  background-color: rgb(253, 253, 253);
   height: 85px;
   display: flex;
   align-items: center;
@@ -30,12 +34,12 @@ body {
   display: flex;
   gap: 40px;
   animation: fadeIn 1.5s ease-in-out;
-  margin-left:150px;
+  margin-left:130px;
 }
 
 .nav-center a {
   text-decoration: none;
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 18px;
   font-weight: 500;
   transition: 0.3s;
@@ -47,8 +51,8 @@ body {
 }
 
 .logout-btn {
-  background: white;
-  color: red;
+  background: rgb(182, 7, 7);
+  color: rgb(255, 255, 255);
   border: none;
   padding: 10px 20px;
   font-weight: bold;
@@ -72,6 +76,72 @@ body {
   gap: 10px;
 }
 
+
+
+/* Hide mobile toggle on desktop */
+.mobile-nav-toggle {
+  display: none;
+  cursor: pointer;
+  color:black;
+   margin-left: 10px;
+}
+
+
+
+.profile-avatar {
+    width: 35px;
+    height: 35px;
+    margin-top: 15px;
+}
+
+.profile-text {
+    margin-top: 2px;
+    margin-left: 5px;
+}
+
+
+/* Mobile menu hidden by default */
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  background: #111;
+  padding: 15px;
+  position: absolute;
+  top: 60px; /* adjust based on navbar height */
+  right: 10px;
+  width: 200px;
+  border-radius: 8px;
+  z-index: 1000;
+}
+
+.mobile-menu a,
+.mobile-menu button,
+.mobile-menu .profile-container {
+  color: white;
+  padding: 10px 0;
+  border-bottom: 1px solid #333;
+}
+
+.mobile-menu a:last-child,
+.mobile-menu button:last-child {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+  .mobile-nav-toggle {
+    display: block;
+  }
+}
+
+
+
+
+
+
+
 .profile-container {
   display: flex;
   flex-direction: column;
@@ -84,17 +154,17 @@ body {
   height: 40px;
   border-radius: 50%; /* makes it circular */
   object-fit: cover;
-  border: 2px solid #fff; /* optional border */
+  border: 2px solid #d80b0b; /* optional border */
 }
 
 .profile-text {
   font-size: 12px;
-  color: #fff;
+  color: #000000;
   margin-top: 2px;
 }
 
 .navbar-logo {
-  height: 40px;   /* adjust as needed */
+  height: 100px;   /* adjust as needed */
   width: auto;
   cursor: pointer;
 }
@@ -114,24 +184,52 @@ body {
   margin: 60px 20px;
   flex-wrap: wrap;
   animation: fadeIn 1.2s ease-in-out;
+      margin-top: -109px;
+        
 }
 
 .feature-card {
-  background: #111;
-  border: 1px solid red;
+  background: rgb(152, 27, 5); /* same red but transparent */
+  border: 2px solid rgba(0, 0, 0, 1.25);
   padding: 30px;
   width: 280px;
   border-radius: 12px;
   text-align: center;
   transition: 0.4s ease-in-out;
   animation: fadeInUp 1.2s ease-in-out;
+
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Optional hover effect */
+.feature-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+
+.feature-card h2 {
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+
+  font-style: normal;
+  font-size: 33px;
+  color: white;
+}
+.feature-card p {
+  color:rgb(246, 184, 184);
 }
 
 .feature-card:hover {
-  background: red;
+  background: rgb(0, 0, 0);
   transform: translateY(-12px) scale(1.05);
   box-shadow: 0 8px 20px rgba(255, 0, 0, 0.5);
+  
 }
+
+
+
 
 /* How It Works */
 .how-it-works {
@@ -195,46 +293,113 @@ body {
   box-shadow: 0 6px 15px rgba(255, 0, 0, 0.4);
 }
 
-/* Footer */
+
+
+
 .footer {
-  background: red;
+  background: #ffffff;
+  color: #890e0e;
   padding: 40px 20px;
-  margin-top: 60px;
-  animation: fadeInUp 1.8s ease-in-out;
+  border:2px solid rgb(150, 6, 6);
+
+}
+
+.footer-logo {
+    width: 120px;
+    margin-bottom: -30px;
+    display: block;
+    margin-top: -35px;
 }
 
 .footer-content {
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
-  color: white;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: -20px;
+  margin-top:-20px;
 }
 
-.footer-content h3 {
-  margin-bottom: 10px;
+.footer-section {
+  flex: 1 1 200px;
+   margin-left: 37px;
 }
 
-.footer-content ul {
+.footer-categories {
+  display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    gap: 0px 12px;
+    margin-left: -83px;
+}
+
+
+.footer-section h3 {
+  color: #a51010;
+  margin-bottom: 15px;
+}
+
+.footer-section ul {
   list-style: none;
   padding: 0;
 }
 
-.footer-content ul li {
-  margin: 5px 0;
-  transition: 0.3s;
+.footer-section ul li {
+  margin: 8px 0;
+  cursor: pointer;
+  transition: color 0.3s;
 }
 
-.footer-content ul li:hover {
-  color: black;
-  transform: translateX(5px);
+.footer-section ul li:hover {
+  color: #ff4d4d;
+}
+
+.social-icons {
+  margin-top: 10px;
+  display: flex;
+  gap: 12px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.social-icons svg:hover {
+  color: #ff4d4d;
+}
+
+.newsletter {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.newsletter form {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.newsletter input {
+  padding: 10px;
+  border: none;
+  border-radius: 6px 0 0 6px;
+  outline: none;
+  width: 250px;
+}
+
+.newsletter button {
+  padding: 10px 20px;
+  border: none;
+  background: #ff4d4d;
+  color: #fff;
+  border-radius: 0 6px 6px 0;
+  cursor: pointer;
 }
 
 .footer-bottom {
   text-align: center;
-  margin-top: 20px;
+  border-top: 1px solid #720c0c;
+  padding-top: 15px;
   font-size: 14px;
-  color: white;
-  animation: fadeIn 2s ease-in-out;
+  color: #960f0f;
+  margin-bottom: -25px;
 }
 
 /* Animations */
@@ -361,41 +526,39 @@ body {
 
 
 
-
-
 /* Signup Container */
 .container {
   max-width: 420px;
-  margin: 60px auto;
+  width: 90%;                 /* make it flexible */
+  margin: 96px auto 60px auto;
   background: #111;
   padding: 30px;
   border-radius: 10px;
   border: 1px solid red;
   text-align: center;
   animation: fadeIn 1.2s ease-in-out;
-      margin-top: 96px;
 }
+
 .signup-container {
-  height: 500px;       /* smaller height for container */
-  width: 400px;        /* keep as per your design */
+  min-height: 400px;          /* shrink for small devices */
+  max-height: 500px;
+  width: 100%;                /* responsive width */
   margin: auto;
-     margin-left: -17px;
   padding: 20px;
   border-radius: 8px;
- 
   display: flex;
   flex-direction: column;
 }
 
 .form-scroll {
   flex: 1;
-  overflow-y: auto;     /* only form fields will scroll */
-  padding-right: 10px;  /* avoid content hiding behind scrollbar */
+  overflow-y: auto;           /* only form scrolls */
+  padding-right: 10px;
 }
 
-
+/* Headings */
 .container h2 {
-  color: red;
+  color: #fff;
   margin-bottom: 20px;
 }
 
@@ -457,6 +620,66 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    max-width: 90%;
+    padding: 20px;
+  }
+  .signup-container {
+    min-height: auto;   /* allow auto height */
+    max-height: none;
+    padding: 15px;
+  }
+  .container h2 {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 95%;
+    padding: 15px;
+    margin-top: 40px;
+  }
+  .container h2 {
+    font-size: 1.2rem;
+  }
+  .container input,
+  .container select,
+  .container textarea,
+  .container button {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+}
+
+.signup-container {
+  min-height: auto;         /* no fixed height */
+  height: auto;             /* grow as per content */
+  width: 100%;              /* take full available width */
+  max-width: 420px;         /* limit width */
+  margin: auto;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+}
+
+.form-scroll {
+  max-height: 70vh;         /* allow scrolling inside form */
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+/* make sure body can scroll */
+html, body, #root {
+  height: 100%;
+  min-height: 100vh;
+  overflow-y: auto;          /* allow vertical scrolling */
 }
 
 
@@ -534,7 +757,7 @@ body {
 
 .landing-page {
   font-family: Arial, sans-serif;
-  color: white;
+  color: rgb(66 2 2);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -543,11 +766,12 @@ body {
 
 /* Navbar */
 .auth-navbar {
-  background-color: red;
+  background-color: rgb(255, 255, 255);
   padding: 15px 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+      height: 102px;
 }
 
 .auth-logo {
@@ -569,9 +793,9 @@ body {
 
 .auth-nav-links li a,
 .auth-nav-links li span {
-  color: white;
+  color: rgb(0, 0, 0);
   text-decoration: none;
-  font-size: 16px;
+  font-size: 18px;
   transition: 0.3s;
 }
 
@@ -588,18 +812,54 @@ body {
 }
 
 .hero-section h1 {
-  font-size: 2.5rem;
+  font-size: 4.5rem;
   margin-bottom: 15px;
+  margin-top: -102px;
+
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+
+  /* 🎨 Animated Gradient */
+  background: linear-gradient(
+    to right,
+    #d18787,
+    #e06161,
+    #ac0505,
+    #dd6c6c,
+    #da8787
+  );
+  background-size: 300% auto; /* bigger background for smooth movement */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: gradientMove 5s linear infinite;
 }
+
+/* 🔄 Keyframes for sliding gradient */
+@keyframes gradientMove {
+  0% {
+    background-position: 0% center;
+  }
+  100% {
+    background-position: 100% center;
+  }
+}
+
 
 .hero-section p {
   font-size: 1.2rem;
   margin-bottom: 20px;
 }
 
+.tagline {
+  margin-top: -23px;
+}
+
 .explore-btn {
-  background: white;
-  color: black;
+  background: rgb(166, 38, 38);
+  color: rgb(249, 249, 249);
   padding: 10px 20px;
   border: none;
   border-radius: 8px;
@@ -608,7 +868,8 @@ body {
 }
 
 .explore-btn:hover {
-  background: #f0f0f0;
+  background: #d73333;
+  color: white;
 }
 
 /* Info Section */
@@ -658,18 +919,45 @@ body {
   z-index: 999;
 }
 
-/* Slideshow background */
+
+
+
+
+
+
+
+
+
+
+
+.hero-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh; /* full screen hero */
+  overflow: hidden;
+}
+
+
 .slideshow {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 120vh; /* covers till info-section */
+  height: 100%;
   background-size: cover;
   background-position: center;
-  z-index: -1;
-  transition: background-image 2s ease-in-out;
+  z-index: -1; /* keeps it behind the hero content */
 }
+
+.hero-section {
+  position: relative;
+  text-align: center;
+  color: #b51919;
+  padding: 100px 20px;
+  z-index: 1;
+}
+
+
 
 /* Help Section */
 .help-section {
@@ -687,6 +975,11 @@ body {
   text-align: center;
   color: white;
 }
+
+
+
+
+
 .steps {
   display: flex;
   justify-content: center;
@@ -758,3 +1051,337 @@ body {
 
 
 
+/* Container */
+.about-section {
+  background: #fff;
+  padding: 4rem 1.5rem;
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7rem;
+  align-items: center;
+  max-width: 1200px;
+    margin-left: 56px;
+}
+
+/* Text Section */
+.about-text .intro {
+  font-style: italic;
+  color: #2b0202;
+  font-size: 20px;
+}
+
+.about-text .title {
+  font-size: 3.5rem;
+     font-family: "Playball", cursive;
+  font-weight: 100;
+  font-style: normal;
+
+  margin-bottom: 1.5rem;
+  color: #aa0909;
+}
+
+.about-text .description {
+  color: #000000;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+
+
+/* Images */
+.about-images {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.main-image img {
+  width: 320px;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Overlay Images */
+.overlay-image img {
+  position: absolute;
+  width: 220px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 4px solid #fff;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.overlay-left img {
+    bottom: -70px;
+    left: -61px;
+}
+
+.overlay-right img {
+      bottom: 189px;
+    right: -69px;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .about-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .overlay-left img,
+  .overlay-right img {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    margin-top: 1rem;
+  }
+}
+
+
+.steps-section {
+  padding: 50px;
+  background: rgb(233, 215, 215);
+  color: rgb(147, 6, 6);
+  text-align: center;
+}
+
+.steps-heading {
+  font-size: 2.8rem;
+   font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  margin-bottom: 100px;
+    margin-top: -20px;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Left side buttons */
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.step-btn {
+  background: transparent;
+  border: 2px solid #a90909;
+  padding: 17px 55px;
+  color: rgb(10, 5, 5);
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  text-align: center;
+  margin-left: -370px;
+   
+}
+
+.step-btn:hover {
+  background: #fff;
+  color: #7b1113;
+}
+
+.step-btn.active {
+  background: #fff;
+  color: #7b1113;
+}
+
+/* Right side content */
+.steps-content {
+  flex: 1;
+  max-width: 600px;
+  text-align: center;
+}
+
+.step-image {
+  width: 118%;
+  max-width: 700px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  margin-left: 140px;
+}
+
+.step-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+.steps-content {
+  flex: 1;
+  max-width: 600px;
+  text-align: center;
+  
+}
+
+/* Glassmorphism container for description */
+.step-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 15px;
+    margin-right: -237px;
+    margin-left: 141px;
+  /* Glass effect */
+
+  border: 2px solid rgb(177, 11, 11);
+  
+  color: #000000;
+  box-shadow: 0 14px 20px rgba(0,0,0,0.3);
+}
+
+.steps-subtext {
+  max-width: 850px;
+  margin: -71px auto 40px auto;
+  font-size: 1.15rem;      /* Medium size */
+  line-height: 1.8;        /* Better readability */
+  color: #000000;             /* Softer color */
+  text-align: center;      /* Centered under heading */
+  font-family: "Outfit", sans-serif;
+  padding: 0 15px;         /* Padding for mobile */
+}
+
+.steps-subtext strong {
+  color: #9c1203;          /* Highlight important words */
+  font-weight: 600;
+}
+
+
+
+
+
+.categories-section {
+  padding: 60px 20px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.categories-heading {
+  font-size: 2.9rem;
+  font-weight: bold;
+  font-family: "Outfit", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  color: #222;
+      margin-top: -22px;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.category-card {
+  position: relative;
+  height: 180px;
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  background-size: cover;
+  background-position: center;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.category-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.category-overlay h3 {
+  color: #ffffff;
+  font-size: 1.7rem;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 10px;
+}
+
+
+/* Subtext under "Browse by Category" */
+.categories-subtext {
+  max-width: 900px;
+  margin: 14px auto 42px auto;   /* space below heading and above grid */
+  padding: 0 16px;               /* breathing room on mobile */
+  font-family: "Outfit", sans-serif;
+  font-size: 1.12rem;            /* medium size */
+  line-height: 1.85;
+  color: #000000;
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+
+
+
+.categories-subtext strong {
+  font-weight: 600;
+  color: #b22222;                /* subtle highlight for key terms */
+}
+
+/* Optional: subtle entrance animation */
+.categories-subtext.reveal {
+  opacity: 0;
+  transform: translateY(6px);
+  animation: catSubtextIn 0.6s ease 0.05s forwards;
+}
+
+@keyframes catSubtextIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .categories-subtext {
+    font-size: 1.02rem;
+    margin: 12px auto 32px auto;
+    line-height: 1.75;
+  }
+}
+
+@media (max-width: 480px) {
+  .categories-subtext {
+    font-size: 0.98rem;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .categories-subtext {
+    color: #d4d4d4;
+  }
+  .categories-subtext strong {
+    color: #ff5a5a;
+  }
+}

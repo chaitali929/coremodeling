@@ -70,7 +70,7 @@
   gap: 20px;
   justify-content: center;
   padding: 20px;
-  background-color: #f8f8f8;
+  background-color: #e2dada;
 }
 
 .job-card {
@@ -113,7 +113,7 @@
   position: fixed;
   top: 94px; /* top-right corner */
   right: 15px;
-  background-color: #d12424;
+  background-color: #af0e0e;
   color: #fff;
   border: none;
   padding: 12px 20px; /* smaller size */
@@ -134,7 +134,7 @@
     position: fixed;
   top: 164px; /* top-right corner */
   right: 15px;
-  background-color: #0eb53d;
+  background-color: #b5800e;
   color: #fff;
   border: none;
   padding: 12px 20px; /* smaller size */
@@ -159,6 +159,9 @@
   z-index: 1000;
 }
 
+.heading{
+  color: rgb(163, 5, 5);
+}
 /* Modal card */
 .form-modal-card {
   background-color: #ffffff;
@@ -181,7 +184,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: #ffffff;
+  color: #900c0c;
   transition: color 0.2s;
 }
 
@@ -236,7 +239,7 @@
 
 
 .delete-job-btn {
-  background-color: #ff0000;
+  background-color: #b81515;
   color: #fff;
   border: none;
   padding: 10px 15px;

@@ -25,7 +25,7 @@ const Blogs = () => {
   return (
     <>
       <Navbar />
-
+      <div className="blogs-body">
       <div className="blogs-container sidebar-layout">
         {/* Sidebar + Content */}
         <div className="blogs-sidebar-container">
@@ -73,7 +73,7 @@ const Blogs = () => {
           </div>
         </div>
       </div>
-
+</div>
       <Footer />
     </>
   );

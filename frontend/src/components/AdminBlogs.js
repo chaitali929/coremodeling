@@ -87,7 +87,7 @@ const AdminBlogs = () => {
   return (
     <>
       <Navbar />
-
+    <div className="blogs-body">
       <div className="admin-blogs-container sidebar-layout">
         {/* Post Blog Button */}
         <div className="post-blog-btn-container">
@@ -182,7 +182,7 @@ const AdminBlogs = () => {
           </div>
         </div>
       </div>
-
+        </div>
       <Footer />
     </>
   );

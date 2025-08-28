@@ -115,7 +115,7 @@ const ArtistsPage = () => {
                 ✖
               </button>
 
-              <h2>{selectedArtist.name}</h2>
+              <h2>Hello! This is   {selectedArtist.name} .</h2>
 
               {/* Show only first 4 photos and videos */}
               <div className="artist-photos-gallery">

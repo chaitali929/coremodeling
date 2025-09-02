@@ -298,7 +298,7 @@ footer {
 
   .hero-section h1 {
     font-size: 2.7rem;
-    
+    color: white;
   }
 
   .hero-section p {
@@ -339,6 +339,7 @@ footer {
 
   .about-text .intro {
     margin-left: -24px;
+    text-align: center;
 }
 }
 

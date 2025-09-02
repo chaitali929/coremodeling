@@ -238,7 +238,7 @@ textarea {
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   margin: 0;   /* remove top margin since aligned with avatar */
   width: auto; /* allow flexible width */
-
+    margin-bottom: 100px;
 
 }
 
@@ -251,22 +251,9 @@ textarea {
 
 /* Change password card goes below the form (still aligned to right) */
 .password-card {
-margin-left: 852px;
-margin-top: -569px;
-margin-bottom: 400px;
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -334,6 +321,7 @@ gap: 15px 0px;
   }
   .password-card {
     margin-left: 526px;
+    margin-top: -68px !important;
   }
 }
 

@@ -31,6 +31,7 @@
   font-size: 1.1rem;
   line-height: 1.6;
   color: #000000;
+  text-align: justify;
 }
 
 .premium-section {
@@ -63,6 +64,7 @@
   font-size: 1.1rem;
   margin-bottom: 25px;
   color: #ccc;
+  text-align: justify;
 }
 
 .contact-box {
@@ -89,6 +91,10 @@
 /* Tablets (max-width: 992px) */
 @media (max-width: 992px) {
   .about-section {
+    display: flex;
+    flex-direction: column; /* ✅ stack heading & text */
+    align-items: center;
+    justify-content: center;
     text-align: center;
     padding: 0 20px;
   }
@@ -119,6 +125,7 @@
     font-size: 1rem;
   }
 }
+
 
 /* Mobiles (max-width: 600px) */
 @media (max-width: 600px) {
@@ -156,7 +163,7 @@
     font-size: 0.95rem;
     line-height: 1.4;
     padding-left: 0; /* center align items */
-    text-align: center;
+    text-align:justify;
   }
 
   .convince-text {

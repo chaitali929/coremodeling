@@ -4,6 +4,7 @@
   gap: 25px;
   padding: 20px;
   justify-content: flex-start; /* start from left */
+  margin-bottom: 214px;
 }
 
 .job-card {
@@ -52,12 +53,12 @@
 }
 
 .approve-btn {
-  background-color: #28a745;
-  color: #fff;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .approve-btn:hover {
-  background-color: #218838;
+  background-color: #000000;
   transform: scale(1.03);
 }
 
@@ -77,7 +78,7 @@
 }
 
 .status-label.approved {
-  color: #28a745;
+  color: #060606;
 }
 
 .status-label.rejected {
@@ -86,14 +87,16 @@
 
 .page-title {
   text-align: center;      /* centers the text horizontally */
-  font-size: 2.6rem;         /* increase font size */
+  font-size: 2rem;         /* increase font size */
   font-weight: 700;        /* make it bold */
   color: #ffffff;       /* top and bottom spacing */
   letter-spacing: 1px;     /* optional spacing for style */
-  background-color: #af0919;
-    font-family: "Playball", cursive;
-  font-weight: 100;
-  font-style: normal;
+  background-color: #000000;
+       font-family: "Playfair Display", serif;
+  font-optical-sizing: auto;
+  font-weight:400;
   padding: 20px;
   margin-top :0px;
+ 
+
 }

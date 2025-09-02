@@ -139,7 +139,22 @@ const handleDeleteMedia = async (artistId, url, type) => {
                     <p><strong>Country:</strong> {artist.country || "N/A"}</p>
                     <p><strong>Language:</strong> {artist.language || "N/A"}</p>
                     <p>{artist.description}</p>
+                                        <p>
+  <strong>Instagram:</strong>{" "}
+  {artist.instagram ? (
+    <a href={artist.instagram} target="_blank" rel="noopener noreferrer">
+      {artist.instagram}
+    </a>
+  ) : (
+    "N/A"
+  )}
+</p>
+
+<p><strong>Followers:</strong> {artist.instagramFollowers || "N/A"}</p>
+
+
                     <p><strong>Status:</strong> {artist.status || "pending"}</p>
+
                   </div>
 
                   <div className="status-buttons">
@@ -244,8 +259,22 @@ const handleDeleteMedia = async (artistId, url, type) => {
                 <p><strong>Country:</strong> {selectedArtist.country || "N/A"}</p>
                 <p><strong>Language:</strong> {selectedArtist.language || "N/A"}</p>
                 <p>{selectedArtist.description}</p>
+                                    <p>
+  <strong>Instagram:</strong>{" "}
+  {selectedArtist.instagram ? (
+    <a href={selectedArtist.instagram} target="_blank" rel="noopener noreferrer">
+      {selectedArtist.instagram}
+    </a>
+  ) : (
+    "N/A"
+  )}
+</p>
+
+
+<p><strong>Followers:</strong> {selectedArtist.instagramFollowers || "N/A"}</p>
+    
                 <p><strong>Status:</strong> {selectedArtist.status || "pending"}</p>
-              </div>
+                       </div>
             </div>
           </div>
         )}

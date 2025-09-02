@@ -1,8 +1,9 @@
 // routes/authRoutes.js
 import express from "express";
-import { signup, login, updateUserProfile, changePassword } from "../controllers/authController.js";
+import { signup, login, updateUserProfile, changePassword, getAllRecruiters, updatePremiumStatus } from "../controllers/authController.js";
 import upload from "../middleware/upload.js";
 import { protect } from "../middleware/authMiddleware.js"; // ✅ import protect
+
 
 const router = express.Router();
 
@@ -31,5 +32,11 @@ router.put(
 );
 
 router.put("/change-password", protect, changePassword); // ✅ new route
+
+router.get("/recruiters", getAllRecruiters);
+
+router.put("/recruiters/:recruiterId/premium", protect, updatePremiumStatus);
+
+
 
 export default router;

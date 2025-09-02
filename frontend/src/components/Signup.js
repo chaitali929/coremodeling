@@ -3,7 +3,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "../styles/style.css";
 
-
 const Signup = () => {
   const [role, setRole] = useState("artist");
   const [identity, setIdentity] = useState("");
@@ -19,8 +18,10 @@ const Signup = () => {
     state: "",
     country: "",
     language: "",
+    instagram: "",   // ✅ added here
+    instagramFollowers: "",  // ✅ new field
   });
-  const [profilePic, setProfilePic] = useState(null); // profile picture state
+  const [profilePic, setProfilePic] = useState(null);
   const [files, setFiles] = useState([]);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -30,7 +31,7 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleProfilePicChange = (e) => {
-    setProfilePic(e.target.files[0]); // single profile picture
+    setProfilePic(e.target.files[0]);
   };
 
   const handleFileChange = (e) => {
@@ -52,12 +53,10 @@ const Signup = () => {
       data.append("role", role);
       data.append("identity", role === "artist" ? identity : "");
 
-      // append profile picture
       if (profilePic) {
         data.append("profilePic", profilePic);
       }
 
-      // append other files (photos/videos)
       files.forEach((file) => {
         data.append("files", file);
       });
@@ -79,12 +78,13 @@ const Signup = () => {
         state: "",
         country: "",
         language: "",
+        instagram: "",   // ✅ reset instagram
+         instagramFollowers: "",  // ✅ reset followers count
       });
       setFiles([]);
       setProfilePic(null);
       setIdentity("");
 
-      // redirect after short delay
       setTimeout(() => {
         navigate("/login");
       }, 2000);
@@ -94,12 +94,12 @@ const Signup = () => {
   };
 
   const photoIdentities = [
-    "model", "actor", "influencer", "writer", "stylist",
-    "photographer", "advertising professional",
+    "model","actor","influencer","writer","stylist",
+    "photographer","advertising professional",
   ];
   const videoIdentities = [
-    "singer", "musician", "dancer", "anchor",
-    "voice-over artist", "filmmaker", "standup-comedian",
+    "singer","musician","dancer","anchor",
+    "voice-over artist","filmmaker","standup-comedian",
   ];
 
   const showPhotoFields = photoIdentities.includes(identity);
@@ -165,10 +165,26 @@ const Signup = () => {
                   <input type="text" name="state" placeholder="State" onChange={handleChange} required />
                   <input type="text" name="country" placeholder="Country" onChange={handleChange} required />
                   <input type="text" name="language" placeholder="Language" onChange={handleChange} required />
+
+                  {/* ✅ Instagram field */}
+                  <input
+                    type="url"
+                    name="instagram"
+                    placeholder="Paste your Instagram Profile Link"
+                    value={formData.instagram}
+                    onChange={handleChange}
+                  />
+                  {/* ✅ Instagram Followers Count field */}
+<input
+  type="text"
+  name="instagramFollowers"
+  placeholder="Enter your Instagram Followers Count"
+  value={formData.instagramFollowers}
+  onChange={handleChange}
+/>
                 </>
               )}
 
-              {/* Profile picture for all users */}
               <label>Upload Profile Picture</label>
               <input type="file" accept="image/*" onChange={handleProfilePicChange} />
 
@@ -189,7 +205,6 @@ const Signup = () => {
               )}
 
               {errorMessage && <p className="error-message">{errorMessage}</p>}
-
               <button type="submit">Signup</button>
             </form>
           </div>

@@ -3,6 +3,7 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import "../styles/Blogs.css"; // separate CSS file for this component
+import "../styles/responsive.css";
 
 const Blogs = () => {
   const [blogs, setBlogs] = useState([]);

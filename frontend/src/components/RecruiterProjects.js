@@ -21,6 +21,7 @@ const RecruiterProjects = () => {
   const [message, setMessage] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [jobs, setJobs] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const artistRoles = [
     "Model",
@@ -130,13 +131,27 @@ const RecruiterProjects = () => {
     }
   };
 
+    const filteredJobs = jobs.filter(
+  (job) =>
+    job.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.recruiterName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.jobDescription.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
   return (
     <div className="recruiter-projects-page">
       <Navbar />
-
+<div className="search-bar">
+  <input
+    type="text"
+    placeholder="Search jobs by title, recruiter, or description..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+</div>
       <div className="jobs-list">
-        {jobs.length > 0 ? (
-          jobs.map((job) => (
+        {filteredJobs.length > 0 ? (
+  filteredJobs.map((job) => (
             <div className="job-card" key={job._id}>
               <h3>{job.jobTitle}</h3>
               <p>

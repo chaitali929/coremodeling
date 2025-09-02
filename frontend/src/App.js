@@ -13,7 +13,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Profile from "./components/Profile";
 import PostedJobs from "./components/PostedJobs";
 import AppliedJobs from "./components/AppliedJobs";
-import Gallery from "./components/Gallery";   // ✅ import Gallery
+import Gallery from "./components/Gallery";   
+import Recruiters from "./components/Recruiters";  // ✅ add this at the top
+
+import BuyPremium from "./components/BuyPremium"; // ✅ Import
 
 // Wrapper to conditionally render Navbar
 const AppWrapper = () => {
@@ -98,6 +101,16 @@ const AppWrapper = () => {
             </ProtectedRoute>
           }
         />
+
+
+        <Route
+  path="/recruiters"
+  element={
+    <ProtectedRoute role="admin">
+      <Recruiters />
+    </ProtectedRoute>
+  }
+/>
         <Route
           path="/blogs"
           element={
@@ -127,6 +140,15 @@ const AppWrapper = () => {
             </ProtectedRoute>
           }
         />
+
+        <Route
+  path="/buy-premium"
+  element={
+    <ProtectedRoute>
+      <BuyPremium />
+    </ProtectedRoute>
+  }
+/>
 
         {/* fallback */}
         <Route path="*" element={<Navigate to="/" />} />

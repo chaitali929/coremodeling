@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";   // 👈 for navigation
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import "../styles/Projects.css";
+import "../styles/responsive.css"
 
 const backendURL = "http://localhost:5000";
 
@@ -14,6 +15,7 @@ const Projects = () => {
   const [showForm, setShowForm] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
   const [formData, setFormData] = useState({
+
     fullName: "",
     email: "",
     contact: "",
@@ -23,6 +25,8 @@ const Projects = () => {
     state: "",
     cv: null,
   });
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navigate = useNavigate();
   const loggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -75,6 +79,15 @@ const Projects = () => {
     setSelectedJob(job);
     setShowForm(true);
   };
+
+
+  const filteredJobs = jobs.filter(
+  (job) =>
+    job.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.recruiterName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    job.jobDescription.toLowerCase().includes(searchTerm.toLowerCase())
+);
+
 
   // ✅ Submit Application
   const handleSubmit = (e) => {
@@ -132,7 +145,14 @@ const Projects = () => {
       <Navbar />
       <div className="projects-page">
         {/* ✅ Applied Jobs Button */}
-        <div className="applied-jobs-btn-container">
+        {/* ✅ Search Filter */}
+
+
+       
+
+        <h1 className="projects-title">Available Jobs for Artists</h1>
+
+         <div className="applied-jobs-btn-container">
           <button 
             className="applied-jobs-btn"
             onClick={() => navigate("/applied-jobs")} // 👈 navigate to AppliedJobs.js
@@ -140,12 +160,18 @@ const Projects = () => {
             Applied Jobs
           </button>
         </div>
-
-        <h1 className="projects-title">Available Jobs for Artists</h1>
-
+<div className="search-bar">
+  <input
+    type="text"
+    placeholder="Search jobs by title, recruiter, or description..."
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+  />
+</div>
         <div className="projects-list">
-          {jobs.length > 0 ? (
-            jobs.map((job) => (
+        {filteredJobs.length > 0 ? (
+  filteredJobs.map((job) => (
+
               <div className="project-card" key={job._id}>
                 <h3>{job.jobTitle}</h3>
                 <p><strong>Description:</strong> {job.jobDescription}</p>

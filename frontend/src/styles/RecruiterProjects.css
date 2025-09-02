@@ -70,7 +70,7 @@
   gap: 20px;
   justify-content: center;
   padding: 20px;
-  background-color: #e2dada;
+ 
 }
 
 .job-card {
@@ -112,9 +112,9 @@
 .floating-create-btn {
   position: fixed;
   top: 94px; /* top-right corner */
-  right: 15px;
-  background-color: #af0e0e;
-  color: #fff;
+  right: 35px;
+  background-color: #ffffff;
+  color: #000000;
   border: none;
   padding: 12px 20px; /* smaller size */
   border-radius: 8px; /* slight rounding */
@@ -133,9 +133,9 @@
 .floating-yourjobs-btn {
     position: fixed;
   top: 164px; /* top-right corner */
-  right: 15px;
-  background-color: #b5800e;
-  color: #fff;
+  right: 35px;
+  background-color: #ffffff;
+  color: #000000;
   border: none;
   padding: 12px 20px; /* smaller size */
   border-radius: 8px; /* slight rounding */
@@ -160,7 +160,7 @@
 }
 
 .heading{
-  color: rgb(163, 5, 5);
+  color: rgb(2, 2, 2);
 }
 /* Modal card */
 .form-modal-card {
@@ -222,7 +222,7 @@
 
 .submit-btn {
   margin-top: 20px;
-  background-color: #d12424;
+  background-color: #000000;
   color: #fff;
   border: none;
   padding: 12px 20px;
@@ -239,7 +239,7 @@
 
 
 .delete-job-btn {
-  background-color: #b81515;
+  background-color: #000000;
   color: #fff;
   border: none;
   padding: 10px 15px;

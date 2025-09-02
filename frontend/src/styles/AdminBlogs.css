@@ -1,5 +1,5 @@
 .blogs-body{
-  background-color: #dad8d8;
+  background-color: #000000;
 }
 
 
@@ -7,7 +7,7 @@
   max-width: 1200px;
   margin: auto;
   padding: 20px;
-  background-color: #dad8d8; /* black background for page */
+  background-color: #000000; /* black background for page */
 }
 
 /* Floating blog form overlay as a white card */
@@ -17,7 +17,7 @@
   left: 50%;
   transform: translate(-50%, -50%); /* center the form */
   background-color: #fff; /* white background */
-  border: 2px solid #ff0000; /* red border */
+  border: 2px solid #f8f8f8; /* red border */
   border-radius: 15px;
   padding: 40px 30px;
   z-index: 1000; /* make sure it overlays everything */
@@ -36,7 +36,7 @@
   margin-bottom: 15px;
   padding: 32px;
   border-radius: 8px;
-  border: 1px solid #ff0000; /* red border */
+  border: 1px solid #ffffff; /* red border */
   background-color: #fff; /* white background */
   color: #000; /* black text */
   font-weight: 500;
@@ -46,7 +46,7 @@
 .blog-submit-btn {
   padding: 12px 25px;
   border: none;
-  background-color: #ff0000; /* red button */
+  background-color: #000000; /* red button */
   color: #fff;
   font-weight: bold;
   cursor: pointer;
@@ -56,7 +56,7 @@
 }
 
 .blog-submit-btn:hover {
-  background-color: #e03e00;
+  background-color: #000000;
 }
 
 /* Optional: semi-transparent dark overlay behind form */
@@ -96,6 +96,29 @@
   overflow-x: hidden; /* hide horizontal scroll */
 }
 
+@media (max-width:468px) {
+  .blogs-sidebar {
+  margin-left:12px !important;
+  height: 300px !important;
+  width:300px !important;
+}
+.selected-blog .blog-image {
+  margin-left: 36px !important;
+}
+}
+
+@media (max-width:1200px) {
+  .blogs-sidebar {
+    width: 662px ;
+    margin-left: 46px !important;
+    margin-top: 10px;
+    height: 400px;
+}
+  
+.selected-blog .blog-image{
+  margin-left:70px;
+}
+}
 /* Scrollbar styling for sidebar */
 .blogs-sidebar::-webkit-scrollbar {
   width: 8px;
@@ -108,7 +131,7 @@
 
 /* Sidebar heading */
 .sidebar-heading {
-  color: #a60c0c;
+  color: #000000;
   margin-bottom: 10px;
   font-size: 20px;
   text-align: center;
@@ -125,7 +148,7 @@
 }
 
 .blog-title-item.active {
-  background-color: #9b0808;
+  background-color: #000000;
   color: #ffffff;
   font-weight: bold;
 }
@@ -153,7 +176,7 @@
 /* Selected blog styling */
 .selected-blog .blog-title {
   font-weight: bold;
-  color: #9b0606;
+  color: #fbf9f9;
   margin-bottom: 10px;
   margin-top: 20px;
 }
@@ -168,7 +191,7 @@
 
 .selected-blog .blog-content p {
   text-align: justify;
-  color: #000000;
+  color: #ffffff;
   line-height: 1.6;
 }
 
@@ -182,8 +205,8 @@
 }
 
 .post-blog-btn {
-  background-color: #950404; /* orange-red */
-  color: white;
+  background-color: #ffffff; /* orange-red */
+  color: rgb(0, 0, 0);
   padding: 15px 25px;
   border: none;
   border-radius: 5px;
@@ -193,12 +216,13 @@
 }
 
 .post-blog-btn:hover {
-  background-color: #650202;
+  background-color: #282727;
+  color: #ffffff;
 }
 
 .delete-blog-btn {
-  background-color: #e63946; /* Red for danger */
-  color: #fff;
+  background-color: #ffffff; /* Red for danger */
+  color: #000000;
   border: none;
   border-radius: 6px;
   padding: 10px 16px;

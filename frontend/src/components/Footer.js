@@ -1,6 +1,7 @@
 import React from "react";
 import "../styles/style.css";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
+import "../styles/responsive.css"
 
 const Footer = () => {
   return (
@@ -61,9 +62,9 @@ const Footer = () => {
         {/* Contact */}
         <div className="footer-section">
           <h3>Contact</h3>
-          <p>Email: support@coremodeling.com</p>
+          <p>Email: coremodeling1@gmail.com</p>
           <p>Phone: +91 9876543210</p>
-          <p>Address: Mumbai, India</p>
+          <p>Address:  1st FLR OFFICE NO-02 SEASONS HARMONY NR AYUSH NX KALYAN WEST Kalyan West, Maharashtra 421301</p>
           <div className="social-icons">
             <FaFacebook />
             <FaTwitter />
@@ -75,7 +76,7 @@ const Footer = () => {
 
       {/* Bottom strip */}
       <p className="footer-bottom">
-        © 2025 CoreModeling. All Rights Reserved. | Designed with ❤️ in India
+        © 2025 CoreModeling. All Rights Reserved. 
       </p>
     </footer>
   );

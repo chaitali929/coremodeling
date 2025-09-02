@@ -10,11 +10,15 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     description: { type: String },
     contact: { type: String },
-    profilePic: { type: String }, // Profile picture URL
+    profilePic: { type: String },
     photos: [{ type: String }],
     videos: [{ type: String }],
     status: { type: String, enum: ["pending", "approved", "rejected"], default: "pending" },
-
+    premiumStatus: {
+  type: String,
+  enum: ["granted", "denied", "none"],
+  default: "none",
+},
     // ✅ Artist-only fields
     gender: { type: String, enum: ["male", "female", "other"] },
     dob: { type: Date },
@@ -22,8 +26,11 @@ const userSchema = new mongoose.Schema(
     state: { type: String },
     country: { type: String },
     language: { type: String },
+    instagram: { type: String },   // ✅ Added Instagram field
+    instagramFollowers: { type: String },  // ✅ NEW
+     // ✅ Add premium flag
+    
 
-    // ✅ Track applied jobs (new)
     appliedJobs: [
       {
         type: mongoose.Schema.Types.ObjectId,

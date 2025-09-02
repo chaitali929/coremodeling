@@ -41,67 +41,110 @@ const Navbar = () => {
     setMenuOpen(false); // close after click
   };
 
-  return (
-    <nav className="navbar">
-      <div className="logo">
-        <a href="/home">
-          <img src={logo} alt="CoreModeling Logo" className="navbar-logo" />
-        </a>
-      </div>
+return (
+  <nav className="navbar">
+    <div className="logo">
+      <a href="/home">
+        <img src={logo} alt="CoreModeling Logo" className="navbar-logo" />
+      </a>
+    </div>
+{/* ✅ Show Premium button depending on premiumStatus */}
+{user?.role === "recruiter" && (
+  user?.premiumStatus === "granted" ? (
+    <button className="premium-btn desktop-only" disabled>
+      Premium Member
+    </button>
+  ) : (
+    <a href="/buy-premium" className="buy-premium-btn desktop-only">
+      Buy Premium
+    </a>
+  )
+)}
 
-      {/* ✅ Desktop Nav */}
-      <div className="nav-center desktop-nav">
-        <a href="/home">Home</a>
-        <a href="/artists">Artists</a>
+    {/* ✅ Desktop Nav */}
+    <div className="nav-center desktop-nav">
+      <a href="/home">Home</a>
+      <a href="/artists">Artists</a>
+
+      
+          {/* ✅ Show Recruiters link only for admin */}
+  {user?.role === "admin" && <a href="/recruiters">Recruiters</a>}
+      <a href="/projects" onClick={handleProjectsClick}>
+        Projects
+      </a>
+      <a href="/blogs" onClick={handleBlogsClick}>
+        Blogs
+      </a>
+    
+    </div>
+
+    <div className="nav-right desktop-nav">
+      {user && user.role !== "admin" && (
+        <div
+          className="profile-container"
+          onClick={() => navigate("/profile")}
+          style={{ cursor: "pointer" }}
+        >
+          <img
+            src={user.profilePic || "/default-avatar.png"}
+            alt="Profile"
+            className="profile-avatar"
+          />
+          <p className="profile-text">Your Profile</p>
+        </div>
+      )}
+
+      <button className="logout-btn" onClick={handleLogout}>
+        Logout
+      </button>
+    </div>
+
+    {/* ✅ Mobile Hamburger Button */}
+    <div className="mobile-nav-toggle" onClick={() => setMenuOpen(!menuOpen)}>
+      {menuOpen ? <X size={28} /> : <Menu size={28} />}
+    </div>
+
+    {/* ✅ Mobile Menu */}
+    {menuOpen && (
+      <div className="mobile-menu">
+        <a href="/home" onClick={() => setMenuOpen(false)}>
+          Home
+        </a>
+        <a href="/artists" onClick={() => setMenuOpen(false)}>
+          Artists
+        </a>
+                 {/* ✅ Show Recruiters only for admin */}
+  {user?.role === "admin" && (
+    <a href="/recruiters" onClick={() => setMenuOpen(false)}>
+      Recruiters
+    </a>
+  )}
         <a href="/projects" onClick={handleProjectsClick}>
           Projects
         </a>
         <a href="/blogs" onClick={handleBlogsClick}>
           Blogs
         </a>
-      </div>
 
-      <div className="nav-right desktop-nav">
-        {user && user.role !== "admin" && (
-          <div
-            className="profile-container"
-            onClick={() => navigate("/profile")}
-            style={{ cursor: "pointer" }}
-          >
-            <img
-              src={user.profilePic || "/default-avatar.png"}
-              alt="Profile"
-              className="profile-avatar"
-            />
-            <p className="profile-text">Your Profile</p>
-          </div>
-        )}
+ 
 
-        <button className="logout-btn" onClick={handleLogout}>
-          Logout
-        </button>
-      </div>
+      {/* ✅ Show Premium button inside hamburger menu */}
+{user?.role === "recruiter" && (
+  user?.premiumStatus === "granted" ? (
+    <button className="premium-btn mobile-only" disabled>
+      Premium Member
+    </button>
+  ) : (
+    <a
+      href="/buy-premium"
+      onClick={() => setMenuOpen(false)}
+      className="buy-premium-btn mobile-only"
+    >
+      Buy Premium
+    </a>
+  )
+)}
 
-      {/* ✅ Mobile Hamburger Button */}
-      <div className="mobile-nav-toggle" onClick={() => setMenuOpen(!menuOpen)}>
-        {menuOpen ? <X size={28} /> : <Menu size={28} />}
-      </div>
-
-      {/* ✅ Mobile Menu */}
-      {menuOpen && (
-        <div className="mobile-menu">
-          <a href="/home" onClick={() => setMenuOpen(false)}>
-            Home
-          </a>
-          <a href="/artists" onClick={() => setMenuOpen(false)}>
-            Artists
-          </a>
-          <a href="/projects" onClick={handleProjectsClick}>
-            Projects
-          </a>
-          <a href="/blogs" onClick={handleBlogsClick}>
-            Blogs
-          </a>
 
           {user && user.role !== "admin" && (
             <div

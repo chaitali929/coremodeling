@@ -128,6 +128,8 @@ const Profile = () => {
         "state",
         "country",
         "language",
+          "instagram",             // ✅ add
+  "instagramFollowers",    // ✅ add
       ];
       textFields.forEach((f) => {
         if (updatedUser[f] !== undefined && updatedUser[f] !== null) {
@@ -185,13 +187,20 @@ const Profile = () => {
     { label: "Country", key: "country" },
     { label: "Language", key: "language" },
     { label: "About", key: "description", textarea: true },
+      { label: "Instagram", key: "instagram" },
+  { label: "Instagram Followers", key: "instagramFollowers" },
   ];
 
   // Recruiters: only show name, email, contact (role + identity are hidden)
-  const fields =
-    user.role === "recruiter"
-      ? allFields.filter((f) => ["name", "email", "contact"].includes(f.key))
-      : allFields;
+ const fields =
+  user.role === "recruiter"
+    ? allFields.filter((f) => ["name", "email", "contact"].includes(f.key))
+    : user.role === "artist"
+    ? allFields // ✅ artists see everything, including Instagram
+    : allFields.filter(
+        (f) => !["instagram", "instagramFollowers"].includes(f.key) // ✅ hide IG fields
+      );
+
 
   return (
     <>

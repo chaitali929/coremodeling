@@ -1,11 +1,9 @@
 
-
-
 .blogs-container {
   max-width: 1200px;
   margin: auto;
   padding: 0px;
-  background-color: #d9d9d9; /* black background */
+  background-color: #000000; /* black background */
   margin-top: 70px;
 }
 
@@ -106,3 +104,5 @@
   color: #fff;
   line-height: 1.6;
 }
+
+

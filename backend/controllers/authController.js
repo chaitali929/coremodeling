@@ -11,7 +11,8 @@ export const signup = async (req, res) => {
   try {
     const {
       name, role, identity, email, password, description,
-      contact, gender, dob, city, state, country, language
+      contact, gender, dob, city, state, country, language,
+      instagram ,   instagramFollowers   // ✅ added
     } = req.body;
 
     const userExists = await User.findOne({ email });
@@ -22,7 +23,6 @@ export const signup = async (req, res) => {
     let photos = [];
     let videos = [];
 
-    // ✅ Upload profile picture
     if (req.files?.profilePic?.[0]) {
       const uploadRes = await uploadBufferToCloudinary(req.files.profilePic[0].buffer, {
         folder: "profile_pics",
@@ -31,7 +31,6 @@ export const signup = async (req, res) => {
       profilePicUrl = uploadRes.secure_url;
     }
 
-    // ✅ Upload photos/videos for artists
     if (req.files?.files?.length > 0 && identity) {
       const photoIdentities = ["model","actor","influencer","writer","stylist","photographer","advertising professional"];
       const videoIdentities = ["singer","musician","dancer","anchor","voice-over artist","filmmaker","standup-comedian"];
@@ -53,7 +52,12 @@ export const signup = async (req, res) => {
     }
 
     const user = await User.create({
-      name, role, identity, email, password, description,
+      name,
+      role,
+      identity,
+      email,
+      password,
+      description,
       contact: role === "artist" ? contact : undefined,
       gender: role === "artist" ? gender : undefined,
       dob: role === "artist" ? dob : undefined,
@@ -61,9 +65,13 @@ export const signup = async (req, res) => {
       state: role === "artist" ? state : undefined,
       country: role === "artist" ? country : undefined,
       language: role === "artist" ? language : undefined,
+      instagram: role === "artist" ? instagram : undefined, // ✅ save IG link
+       instagramFollowers: role === "artist" ? instagramFollowers : undefined, // ✅ NEW
       profilePic: profilePicUrl,
       photos,
       videos,
+       premiumStatus: "none", // optional but explicit is better
+    
     });
 
     res.status(201).json({
@@ -79,10 +87,13 @@ export const signup = async (req, res) => {
       state: user.state,
       country: user.country,
       language: user.language,
+      instagram: user.instagram,  // ✅ send IG link back in response
+        instagramFollowers: user.instagramFollowers,   // ✅ NEW
       profilePic: user.profilePic,
       photos: user.photos,
       videos: user.videos,
       description: user.description,
+        premiumStatus: user.premiumStatus,   // ✅ add this
       token: jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "7d" }),
     });
   } catch (error) {
@@ -90,6 +101,7 @@ export const signup = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
 
 
 // Login
@@ -121,13 +133,16 @@ export const login = async (req, res) => {
       photos: user.photos,
       videos: user.videos,
       description: user.description,
+           instagram: user.instagram,  // ✅ send IG link back in response
+        instagramFollowers: user.instagramFollowers,   // ✅ NEW
+        premiumStatus: user.premiumStatus,   // ✅ add this
       token: generateToken(user._id),
+
     });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-
 
 
 
@@ -144,13 +159,15 @@ export const updateUserProfile = async (req, res) => {
     // Update basic fields
     const {
       name, email, description, contact,
-      gender, dob, city, state, country, language,role, identity
+      gender, dob, city, state, country, language,
+      role, identity,
+      instagram, instagramFollowers, // ✅ added
     } = req.body;
 
     if (name) user.name = name;
     if (email) user.email = email;
     if (role) user.role = role;
-if (identity) user.identity = identity;
+    if (identity) user.identity = identity;
 
     if (description) user.description = description;
     if (contact) user.contact = contact;
@@ -161,12 +178,22 @@ if (identity) user.identity = identity;
     if (country) user.country = country;
     if (language) user.language = language;
 
+    // ✅ Only artists can update Instagram details
+    if (user.role === "artist") {
+      if (instagram !== undefined) user.instagram = instagram;
+      if (instagramFollowers !== undefined)
+        user.instagramFollowers = instagramFollowers;
+    }
+
     // ✅ Profile Pic Upload
     if (req.files?.profilePic?.[0]) {
-      const uploadRes = await uploadBufferToCloudinary(req.files.profilePic[0].buffer, {
-        folder: "profile_pics",
-        resourceType: "image",
-      });
+      const uploadRes = await uploadBufferToCloudinary(
+        req.files.profilePic[0].buffer,
+        {
+          folder: "profile_pics",
+          resourceType: "image",
+        }
+      );
       user.profilePic = uploadRes.secure_url;
     }
 
@@ -185,10 +212,17 @@ if (identity) user.identity = identity;
 
       // merge new uploads with old ones
       if (user.identity) {
-        if ([
-          "model", "actor", "influencer", "writer",
-          "stylist", "photographer", "advertising professional"
-        ].includes(user.identity)) {
+        if (
+          [
+            "model",
+            "actor",
+            "influencer",
+            "writer",
+            "stylist",
+            "photographer",
+            "advertising professional",
+          ].includes(user.identity)
+        ) {
           user.photos = [...user.photos, ...uploadedUrls];
         } else {
           user.videos = [...user.videos, ...uploadedUrls];
@@ -198,7 +232,7 @@ if (identity) user.identity = identity;
 
     const updatedUser = await user.save();
 
-    // ✅ Include role + identity in response
+    // ✅ Include new IG fields in response
     res.json({
       _id: updatedUser._id,
       name: updatedUser.name,
@@ -216,6 +250,8 @@ if (identity) user.identity = identity;
       state: updatedUser.state,
       country: updatedUser.country,
       language: updatedUser.language,
+      instagram: updatedUser.instagram,                 // ✅
+      instagramFollowers: updatedUser.instagramFollowers, // ✅
     });
   } catch (error) {
     console.error("Update profile error:", error);
@@ -255,3 +291,54 @@ export const changePassword = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+
+
+
+
+// ✅ Get all recruiters (admin-only ideally)
+export const getAllRecruiters = async (req, res) => {
+  try {
+    const recruiters = await User.find({ role: "recruiter" }).select(
+      "name email contact profilePic  premiumStatus"
+    );
+    res.json(recruiters);
+  } catch (error) {
+    console.error("Error fetching recruiters:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+
+
+// ✅ Update recruiter premium status
+export const updatePremiumStatus = async (req, res) => {
+  try {
+    const { recruiterId } = req.params;
+    const { premiumStatus } = req.body;
+
+    if (!["granted", "denied"].includes(premiumStatus)) {
+      return res.status(400).json({ message: "Invalid status" });
+    }
+
+    const recruiter = await User.findById(recruiterId);
+    if (!recruiter || recruiter.role !== "recruiter") {
+      return res.status(404).json({ message: "Recruiter not found" });
+    }
+
+    recruiter.premiumStatus = premiumStatus;
+    await recruiter.save();
+
+    res.json({ message: "Premium status updated", recruiter });
+  } catch (error) {
+    console.error("Error updating premium status:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+
+
+
+
+

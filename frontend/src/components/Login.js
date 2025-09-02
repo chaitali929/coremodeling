@@ -152,11 +152,10 @@ return (
     </div>
 
 
-
-  <section className="about-section">
+<section className="about-section">
   <div className="about-container">
     {/* Left Side - Text */}
-    <div className="about-text fade-in-up delay-1">
+    <div className="about-text">
       <p className="intro">Welcome to CoreModeling</p>
       <h2 className="title">Connecting Artists & Recruiters</h2>
       <p className="description">
@@ -173,27 +172,27 @@ return (
         here to simplify collaboration and foster meaningful connections in 
         the creative industry.
       </p>
-    
     </div>
 
     {/* Right Side - Images */}
-    <div className="about-images slide-in-left delay-2">
+    <div className="about-images">
       <div className="main-image">
         <img src={about1} alt="CoreModeling Showcase" />
 
         {/* Left Overlay Image */}
-        <div className="overlay-image overlay-left slide-in-left delay-3">
+        <div className="overlay-image overlay-left">
           <img src={about2} alt="Artist Portfolio" />
         </div>
 
         {/* Right Overlay Image */}
-        <div className="overlay-image overlay-right slide-in-left delay-4">
+        <div className="overlay-image overlay-right">
           <img src={about3} alt="Recruiter Hiring" />
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
  <section className="steps-section">
       <h2 className="steps-heading">How Our Platform Works</h2>

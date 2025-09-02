@@ -16,7 +16,7 @@
 }
 
 .artist-card {
-  background: #941010;
+  background: #060505;
   padding: 1.2rem;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
@@ -50,10 +50,10 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 16px;
-  margin: 10px;
+  margin: 18px;
   display: flex;
   flex-direction: column;
-  background-color: #a20d0d;
+  background-color: #000000;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
@@ -64,6 +64,7 @@
   object-fit: cover;
   margin-bottom: 10px;
   border-radius: 5px;
+  filter:grayscale(100%) ;
 
 }
 
@@ -183,3 +184,37 @@
   border-radius: 10px;
   box-shadow: 0px 4px 20px rgba(0,0,0,0.8);
 }
+
+/* 🔍 Search Filter Wrapper */
+.search-filter {
+  display: flex;
+ 
+  margin: 20px 30px 0;
+
+}
+
+/* 🎨 Dropdown Styling */
+.search-filter select {
+  background-color: #000;   /* Black background */
+  color: #fff;              /* White text */
+  border: 2px solid #000;   /* Black border */
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  width: 260px;
+  text-align: center;
+}
+
+/* Hover + Focus Effects */
+.search-filter select:hover,
+.search-filter select:focus {
+  background-color: #111;   /* Slightly lighter black */
+  border-color: #444;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+

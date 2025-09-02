@@ -78,7 +78,7 @@ const AdminProjects = () => {
                 <div style={{ marginTop: "10px", display: "flex", gap: "10px" }}>
                   <button
                     className="submit-btn"
-                    style={{ backgroundColor: "#28a745" }}
+                    style={{ backgroundColor: "#040404ff" }}
                     onClick={() => updateStatus(job._id, "approved")}
                   >
                     Approve

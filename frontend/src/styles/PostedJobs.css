@@ -1,15 +1,19 @@
 .posted-jobs-page {
-  max-width: 1200px;
+  max-width: 3280px;
   margin: 0 auto;
   padding: 20px;
   font-family: 'Arial', sans-serif;
+  background-color:black ;
 }
 
 .posted-jobs-page h2 {
   text-align: center;
-  margin-bottom: 30px;
-  color: #ffffff;
+ margin-top: -10px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #000000;
   font-size: 2rem;
+  background-color: white;
 }
 
 /* Container for all cards */
@@ -36,11 +40,11 @@
 .job-card h3 {
   font-size: 1.5rem;
   margin-bottom: 10px;
-  color: #c50e0e;
+  color: #080808;
 }
 .job-card p {
   margin-bottom: 8px;
-  color: #555;
+  color: #000000;
   line-height: 1.4;
   word-wrap: break-word;   /* ✅ breaks long words */
   overflow-wrap: break-word; /* ✅ modern way */
